@@ -103,7 +103,7 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
         <Card className="w-[100%]">
           <CardHeader>
             <CardTitle className="text-2xl font-bold">Quiz Creation</CardTitle>
-            <CardDescription>Choose a topic</CardDescription>
+            <CardDescription>What Should We Quiz You On??</CardDescription>
           </CardHeader>
           <CardContent>
             <Form {...form}>
