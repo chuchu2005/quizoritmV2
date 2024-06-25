@@ -13,7 +13,7 @@ const WellcomePhrase = () => {
   return (
     <div className="m-10">
         <div className="flex items-center gap-2">
-          <p className="text-2xl font-bold">Wellcome</p>
+          <p className="text-2xl font-bold">Welcome</p>
           <div className="text-xs"><DetailsDialog /></div>
         </div>
         <p className="mt-3 text-4xl font-bold">

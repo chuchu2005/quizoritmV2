@@ -17,12 +17,12 @@ const QuizMeCard = (props: Props) => {
     >
       <div className="flex flex-col">
         <CardHeader>
-          <CardTitle className="text-3xl font-bold">Lets start on Quiz now!</CardTitle>
+          <CardTitle className="text-3xl font-bold">Are YOU ready to take on a quiz now!!!</CardTitle>
         </CardHeader>
         <CardContent>
             <div>
               <p className="text-sm text-muted-foreground">
-               Here in our app try to challenge yourself in quizes with a topics of your choice.
+               Try to challenge yourself in quizes in any topics of your choice.
               </p>
 
               <div className="rounded-lg border-2 border-b-4 border-r-4 border-black px-2 py-1 text-xl font-bold transition-all hover:translate-x-[3px] md:block dark:border-white w-12 mt-10">
