@@ -10,7 +10,7 @@ import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Home | Learnrithm",
+  title: "Quiz | Learnrithm",
   description: "Quiz yourself on anything!",
 };
 
@@ -20,9 +20,9 @@ export default async function Home() {
     <div className="max-h-screen"> 
       <Card className="w-[300px] fixed -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
         <CardHeader>
-          <CardTitle>Welcome to Learnrithm 🔥!</CardTitle>
+          <CardTitle>Welcome to Learnrithm AI Quiz 🔥!</CardTitle>
           <CardDescription>
-            Learnrithm is a platform for creating quizzes using AI!.
+            You can use this to Quiz yourself and also prep yourself on Quiz Questions for your exams or Interview Prep!.
           </CardDescription>
         </CardHeader>
         {userId ? (
