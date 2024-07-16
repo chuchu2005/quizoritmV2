@@ -3,11 +3,7 @@ import { prisma } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import React from "react";
-export const metadata: Metadata = {
-  title: "Learnrithm AI Quiz",
-  description: "Learnrithm AI Quiz | Learning Doesnt Have To Be Hard",
-  // other metadata
-};
+
 type Props = {
   params: {
     gameId: string;

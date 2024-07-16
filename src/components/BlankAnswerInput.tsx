@@ -1,10 +1,6 @@
 import React from "react";
 import keyword_extractor from "keyword-extractor";
-export const metadata: Metadata = {
-  title: "Learnrithm AI Quiz",
-  description: "Learnrithm AI Quiz | Learning Doesnt Have To Be Hard",
-  // other metadata
-};
+
 type Props = {
   answer: string;
   setBlankAnswer: React.Dispatch<React.SetStateAction<string>>;

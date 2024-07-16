@@ -1,9 +1,5 @@
 import { z } from "zod";
-export const metadata: Metadata = {
-  title: "Learnrithm AI Quiz",
-  description: "Learnrithm AI Quiz | Learning Doesnt Have To Be Hard",
-  // other metadata
-};
+
 export const quizCreationSchema = z.object({
   topic: z
     .string()

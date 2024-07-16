@@ -1,10 +1,6 @@
 import React from 'react';
 import Script from 'next/script';
-export const metadata: Metadata = {
-  title: "Learnrithm AI Quiz",
-  description: "Learnrithm AI Quiz | Learning Doesnt Have To Be Hard",
-  // other metadata
-};
+
 const GoogleAnalytics = () => {
   return (
     <>

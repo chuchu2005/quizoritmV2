@@ -1,9 +1,4 @@
 "use client";
-export const metadata: Metadata = {
-  title: "Learnrithm AI Quiz",
-  description: "Learnrithm AI Quiz | Learning Doesnt Have To Be Hard",
-  // other metadata
-};
 import { quizCreationSchema } from "@/schemas/forms/quiz";
 import React from "react";
 import { z } from "zod";

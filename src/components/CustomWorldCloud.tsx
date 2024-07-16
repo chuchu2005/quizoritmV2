@@ -3,11 +3,7 @@ import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useCallback } from "react";
 import WordCloud from "wordcloud";
-export const metadata: Metadata = {
-  title: "Learnrithm AI Quiz",
-  description: "Learnrithm AI Quiz | Learning Doesnt Have To Be Hard",
-  // other metadata
-};
+
 type Props = {
   formattedTopics: { text: string; value: number }[];
 };

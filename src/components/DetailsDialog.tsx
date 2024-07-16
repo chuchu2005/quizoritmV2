@@ -10,11 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { HelpCircle } from "lucide-react";
 import Image from "next/image";
-export const metadata: Metadata = {
-  title: "Learnrithm AI Quiz",
-  description: "Learnrithm AI Quiz | Learning Doesnt Have To Be Hard",
-  // other metadata
-};
+
 type Props = {};
 
 const DetailsDialog = (props: Props) => {

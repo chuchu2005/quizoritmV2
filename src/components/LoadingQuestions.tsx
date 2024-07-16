@@ -1,11 +1,7 @@
 import React from "react";
 import { Progress } from "./ui/progress";
 import Image from "next/image";
-export const metadata: Metadata = {
-  title: "Learnrithm AI Quiz",
-  description: "Learnrithm AI Quiz | Learning Doesnt Have To Be Hard",
-  // other metadata
-};
+
 type Props = { finished: boolean };
 
 const loadingTexts = [
