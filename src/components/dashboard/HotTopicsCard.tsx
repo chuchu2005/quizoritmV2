@@ -8,11 +8,7 @@ import {
 } from "@/components/ui/card";
 import { prisma } from "@/lib/db";
 import CustomWordCloud from "@/components/CustomWorldCloud";
-export const metadata: Metadata = {
-  title: "Learnrithm AI Quiz",
-  description: "Learnrithm AI Quiz | Learning Doesnt Have To Be Hard",
-  // other metadata
-};
+
 type Props = {};
 
 const HotTopicsCard = async (props: Props) => {
