@@ -4,11 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 import { Play } from "lucide-react";
 import Image from "next/image";
-export const metadata: Metadata = {
-  title: "Learnrithm AI Quiz",
-  description: "Learnrithm AI Quiz | Learning Doesnt Have To Be Hard",
-  // other metadata
-};
+
 type Props = {};
 
 const QuizMeCard = (props: Props) => {
