@@ -5,7 +5,11 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-
+export const metadata: Metadata = {
+  title: "Learnrithm AI Quiz",
+  description: "Learnrithm AI Quiz | Learning Doesnt Have To Be Hard",
+  // other metadata
+};
 const ForgotPasswordPage: NextPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

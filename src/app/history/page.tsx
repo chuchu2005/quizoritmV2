@@ -6,7 +6,11 @@ import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { LucideLayoutDashboard } from "lucide-react";
 import { auth } from "@clerk/nextjs/server";
-
+export const metadata: Metadata = {
+  title: "Learnrithm AI Quiz",
+  description: "Learnrithm AI Quiz | Learning Doesnt Have To Be Hard",
+  // other metadata
+};
 type Props = {};
 
 export const metadata = {

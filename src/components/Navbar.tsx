@@ -3,7 +3,11 @@ import React from "react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { auth } from "@clerk/nextjs/server";
 import { UserButton } from "@clerk/nextjs";
-
+export const metadata: Metadata = {
+  title: "Learnrithm AI Quiz",
+  description: "Learnrithm AI Quiz | Learning Doesnt Have To Be Hard",
+  // other metadata
+};
 const NewNavbar = () => {
   const { userId } = auth();
   return (

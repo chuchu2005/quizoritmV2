@@ -2,7 +2,11 @@ import React from "react";
 import { Card } from "@/components/ui/card";
 import { CheckCircle2, XCircle } from "lucide-react";
 import { Separator } from "@radix-ui/react-separator";
-
+export const metadata: Metadata = {
+  title: "Learnrithm AI Quiz",
+  description: "Learnrithm AI Quiz | Learning Doesnt Have To Be Hard",
+  // other metadata
+};
 type Props = {
   correct_answers: number;
   wrong_answers: number;

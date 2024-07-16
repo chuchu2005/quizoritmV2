@@ -1,5 +1,9 @@
 import { UserProfile } from "@clerk/nextjs";
-
+export const metadata: Metadata = {
+    title: "Learnrithm AI Quiz",
+    description: "Learnrithm AI Quiz | Learning Doesnt Have To Be Hard",
+    // other metadata
+  };
 export const metadata = {
     title: "Profile | Learnrithm",
     description: "Manage your profile",

@@ -2,7 +2,11 @@ import { buttonVariants } from "@/components/ui/button";
 import { prisma } from "@/lib/db";
 import { LucideLayoutDashboard } from "lucide-react";
 import Link from "next/link";
-
+export const metadata: Metadata = {
+  title: "Learnrithm AI Quiz",
+  description: "Learnrithm AI Quiz | Learning Doesnt Have To Be Hard",
+  // other metadata
+};
 import { redirect } from "next/navigation";
 import React from "react";
 import ResultsCard from "@/components/statistics/ResultsCard";

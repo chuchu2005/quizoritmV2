@@ -19,7 +19,11 @@ import { checkAnswerSchema, endGameSchema } from "@/schemas/questions";
 import axios from "axios";
 import { useToast } from "./ui/use-toast";
 import Link from "next/link";
-
+export const metadata: Metadata = {
+  title: "Learnrithm AI Quiz",
+  description: "Learnrithm AI Quiz | Learning Doesnt Have To Be Hard",
+  // other metadata
+};
 type Props = {
   game: Game & { questions: Pick<Question, "id" | "question" | "answer">[] };
 };
