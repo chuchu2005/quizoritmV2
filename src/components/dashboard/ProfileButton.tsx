@@ -3,7 +3,11 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 import { UserCog } from "lucide-react";
-
+export const metadata: Metadata = {
+  title: "Learnrithm AI Quiz",
+  description: "Learnrithm AI Quiz | Learning Doesnt Have To Be Hard",
+  // other metadata
+};
 
 const ProfileButton = () => {
   const router = useRouter();
