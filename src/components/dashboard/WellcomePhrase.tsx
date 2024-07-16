@@ -3,7 +3,11 @@ import React from "react";
 import { useUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import DetailsDialog from "../DetailsDialog";
-
+export const metadata: Metadata = {
+  title: "Learnrithm AI Quiz",
+  description: "Learnrithm AI Quiz | Learning Doesnt Have To Be Hard",
+  // other metadata
+};
 
 const WellcomePhrase = () => {
   const {user} = useUser();
