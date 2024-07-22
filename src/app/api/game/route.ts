@@ -25,12 +25,13 @@ export async function POST(req: Request, res: Response) {
     const gameIdGen = generateGameId(userId);
     
     const body = await req.json();
-    const { topic, type, amount } = quizCreationSchema.parse(body);
+    const { topic, type, amount, language } = quizCreationSchema.parse(body);
     const game = await prisma.game.create({
       data: {
         id:gameIdGen,
         gameType: type,
         timeStarted: new Date(),
+        language: language,
         userId: userId,
         topic,
       },
@@ -56,6 +57,7 @@ export async function POST(req: Request, res: Response) {
         amount,
         topic,
         type,
+        language,
       }
     );
 
