@@ -50,7 +50,12 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
   const { toast } = useToast();
   const { mutate: getQuestions, isPending } = useMutation({
     mutationFn: async ({ amount, topic, type, language }: Input) => {
-      const response = await axios.post("/api/game", { amount, topic, type, language });
+      const response = await axios.post("/api/game", {
+        amount,
+        topic,
+        type,
+        language,
+      });
       return response.data;
     },
   });
@@ -180,19 +185,37 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="English">
-                            English
-                          </SelectItem>
-                          <SelectItem value="French">
-                            French
-                          </SelectItem>
-                          <SelectItem value="Arabic">
-                            Arabic
-                          </SelectItem>
+                          <SelectItem value="English">English</SelectItem>
+                          <SelectItem value="French">French</SelectItem>
+                          <SelectItem value="Arabic">Arabic</SelectItem>
+                          <SelectItem value="Spanish">Spanish</SelectItem>
+                          <SelectItem value="German">German</SelectItem>
+                          <SelectItem value="Italian">Italian</SelectItem>
+                          <SelectItem value="Portuguese">Portuguese</SelectItem>
+                          <SelectItem value="Dutch">Dutch</SelectItem>
+                          <SelectItem value="Russian">Russian</SelectItem>
+                          <SelectItem value="Chinese">Chinese</SelectItem>
+                          <SelectItem value="Japanese">Japanese</SelectItem>
+                          <SelectItem value="Korean">Korean</SelectItem>
+                          <SelectItem value="Hindi">Hindi</SelectItem>
+                          <SelectItem value="Swedish">Swedish</SelectItem>
+                          <SelectItem value="Norwegian">Norwegian</SelectItem>
+                          <SelectItem value="Danish">Danish</SelectItem>
+                          <SelectItem value="Finnish">Finnish</SelectItem>
+                          <SelectItem value="Polish">Polish</SelectItem>
+                          <SelectItem value="Turkish">Turkish</SelectItem>
+                          <SelectItem value="Czech">Czech</SelectItem>
+                          <SelectItem value="Hungarian">Hungarian</SelectItem>
+                          <SelectItem value="Romanian">Romanian</SelectItem>
+                          <SelectItem value="Greek">Greek</SelectItem>
+                          <SelectItem value="Hebrew">Hebrew</SelectItem>
+                          <SelectItem value="Thai">Thai</SelectItem>
+                          <SelectItem value="Vietnamese">Vietnamese</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormDescription>
-                        You can choose from the following language to get quiz about
+                        You can choose from the following language to get quiz
+                        about
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
