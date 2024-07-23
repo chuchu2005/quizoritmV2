@@ -12,46 +12,20 @@ const PricingSection: FC = () => {
             Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.
           </p>
         </div>
-        <div className="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
+        <div className="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0 ">
           <PricingCard
             title="Starter"
-            price="$29"
+            price="$1"
             period="/month"
-            description="Best option for personal use & for your next project."
+            description="Meant for students who just want to quiz themselves"
             features={[
-              'Individual configuration',
+              'Unlimited quiz generations ',
               'No setup, or hidden fees',
-              'Team size: 1 developer',
-              'Premium support: 6 months',
-              'Free updates: 6 months'
+              'unlimited number of questions',
+              
             ]}
           />
-          <PricingCard
-            title="Company"
-            price="$99"
-            period="/month"
-            description="Relevant for multiple users, extended & premium support."
-            features={[
-              'Individual configuration',
-              'No setup, or hidden fees',
-              'Team size: 10 developers',
-              'Premium support: 24 months',
-              'Free updates: 24 months'
-            ]}
-          />
-          <PricingCard
-            title="Enterprise"
-            price="$499"
-            period="/month"
-            description="Best for large scale uses and extended redistribution rights."
-            features={[
-              'Individual configuration',
-              'No setup, or hidden fees',
-              'Team size: 100+ developers',
-              'Premium support: 36 months',
-              'Free updates: 36 months'
-            ]}
-          />
+          
         </div>
       </div>
     </section>
@@ -96,7 +70,7 @@ const PricingCard: FC<PricingCardProps> = ({ title, price, period, description, 
       </ul>
       <a
         href="#"
-        className="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white dark:focus:ring-primary-900"
+        className="text-black bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white dark:focus:ring-primary-900"
       >
         Get started
       </a>

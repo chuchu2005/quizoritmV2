@@ -26,7 +26,12 @@ const NewNavbar = () => {
             <div className='flex justify-end'>
               <Link href='/sign-up' className="font-bold">Sign up</Link>
             </div>
+            
           )}
+<div className="flex justify-end">
+  <a href="https://quiz.learnrithm.com/pricing" target="_blank" rel="noopener noreferrer">Pricing Page</a>
+</div>
+
         </div>
       </div>
   );
