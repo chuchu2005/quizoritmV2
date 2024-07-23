@@ -13,6 +13,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { BookOpen, CopyCheck } from "lucide-react";
@@ -42,8 +49,13 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
   const [finishedLoading, setFinishedLoading] = React.useState(false);
   const { toast } = useToast();
   const { mutate: getQuestions, isPending } = useMutation({
-    mutationFn: async ({ amount, topic, type }: Input) => {
-      const response = await axios.post("/api/game", { amount, topic, type });
+    mutationFn: async ({ amount, topic, type, language }: Input) => {
+      const response = await axios.post("/api/game", {
+        amount,
+        topic,
+        type,
+        language,
+      });
       return response.data;
     },
   });
@@ -54,6 +66,7 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
       topic: topicParam,
       type: "mcq",
       amount: 3,
+      language: "English",
     },
   });
 
@@ -64,6 +77,7 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
         amount: input.amount,
         topic: input.topic,
         type: input.type,
+        language: form.getValues("language"),
       },
       {
         onError: (error) => {
@@ -149,6 +163,59 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
                       <FormDescription>
                         You can choose how many questions you would like to be
                         quizzed on here.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="language"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>language</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select the language" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="English">English</SelectItem>
+                          <SelectItem value="French">French</SelectItem>
+                          <SelectItem value="Arabic">Arabic</SelectItem>
+                          <SelectItem value="Spanish">Spanish</SelectItem>
+                          <SelectItem value="German">German</SelectItem>
+                          <SelectItem value="Italian">Italian</SelectItem>
+                          <SelectItem value="Portuguese">Portuguese</SelectItem>
+                          <SelectItem value="Dutch">Dutch</SelectItem>
+                          <SelectItem value="Russian">Russian</SelectItem>
+                          <SelectItem value="Chinese">Chinese</SelectItem>
+                          <SelectItem value="Japanese">Japanese</SelectItem>
+                          <SelectItem value="Korean">Korean</SelectItem>
+                          <SelectItem value="Hindi">Hindi</SelectItem>
+                          <SelectItem value="Swedish">Swedish</SelectItem>
+                          <SelectItem value="Norwegian">Norwegian</SelectItem>
+                          <SelectItem value="Danish">Danish</SelectItem>
+                          <SelectItem value="Finnish">Finnish</SelectItem>
+                          <SelectItem value="Polish">Polish</SelectItem>
+                          <SelectItem value="Turkish">Turkish</SelectItem>
+                          <SelectItem value="Czech">Czech</SelectItem>
+                          <SelectItem value="Hungarian">Hungarian</SelectItem>
+                          <SelectItem value="Romanian">Romanian</SelectItem>
+                          <SelectItem value="Greek">Greek</SelectItem>
+                          <SelectItem value="Hebrew">Hebrew</SelectItem>
+                          <SelectItem value="Thai">Thai</SelectItem>
+                          <SelectItem value="Vietnamese">Vietnamese</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormDescription>
+                        You can choose from the following language to get quiz
+                        about
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
