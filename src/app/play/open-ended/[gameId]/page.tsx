@@ -33,7 +33,10 @@ const OpenEndedPage = async ({ params: { gameId } }: Props) => {
   if (!game || game.gameType === "mcq") {
     return redirect("/quiz");
   }
-  return <OpenEnded game={game} />;
+  return (
+  <section className="w-full flex justify-center items-center h-screen">
+    <OpenEnded game={game} />
+  </section>);
 };
 
 export default OpenEndedPage;
