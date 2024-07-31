@@ -112,7 +112,7 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
   }
 
   return (
-    <div className="max-h-screen">
+    <div className="max-h-screen mb-20">
       <div className="fixed sm:-translate-x-1/2 sm:-translate-y-1/2 sm:top-1/2 sm:left-1/2 ">
         <Card className="w-[100%]">
           <CardHeader>
