@@ -31,6 +31,7 @@ export async function startFlutterwave(data: Input) {
   sessionStorage.setItem("method", "flutterwave");
   sessionStorage.setItem("plan", plan ? plan : "Monthly");
 
+  const keysData = await axios.post("/api/getDetails/keys", {method: "flutterwave"});
   try {
     const script = document.createElement("script");
     script.src = "https://checkout.flutterwave.com/v3.js";
@@ -40,23 +41,17 @@ export async function startFlutterwave(data: Input) {
     script.onload = () => {
       if (window.FlutterwaveCheckout) {
         window.FlutterwaveCheckout({
-          public_key: `${process.env.FLUTTERWAVE_PUBLIC_KEY}`,
+          public_key: keysData.data.publicKey,
           tx_ref: Date.now() + data.country,
           amount: price,
           payment_plan: planId,
           currency: "USD",
           redirect_url: "/success",
           payment_options: "card",
-          enckey: `${process.env.FLUTTERWAVE_ENC_KEY}`,
+          enckey: keysData.data.encKey,
           customer: {
             email: data.email,
             name: `${data.firstName}, ${data.lastName}`,
-          },
-          callback: async function () {
-            await axios.post("/api/payment");
-          },
-          onclose: function () {
-            sessionStorage.setItem('message', 'user have closed the payment process');
           },
           customizations: {
             title: "Learnrithm - Quiz Feature",
@@ -89,7 +84,10 @@ export async function startPaystack(data: Input) {
     email: data.email,
     amount: amountInZar,
     plan: planId,
+    callback_url: "/success",
   };
+
+  const keysData = await axios.post("/api/getDetails/keys", {method: "paystack"});
 
   try {
     const response = await axios.post(
@@ -97,7 +95,7 @@ export async function startPaystack(data: Input) {
       dataToSend,
       {
         headers: {
-          Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+          Authorization: `Bearer ${keysData.data.secretKey}`,
           "Content-Type": "application/json",
         },
       }
@@ -107,10 +105,14 @@ export async function startPaystack(data: Input) {
       return { status: 500, message: "Paystack initialization failed" };
     }
 
+    console.log(response.data.data)
+
+
     sessionStorage.setItem("method", "paystack");
     sessionStorage.setItem("plan", plan ? plan : "Monthly");
-    window.location.href = response.data.data.data.authorization_url;
+    window.location.href = response.data.data.authorization_url;
   } catch (error) {
     return { message: `Payment initialize: ${error}` };
   }
+
 }

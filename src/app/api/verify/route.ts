@@ -29,7 +29,7 @@ export async function POST(request: Request) {
 
       return NextResponse.json({ isUnderLimit });
     } else {
-      return NextResponse.json({ message: 'User does not have a hobby plan' });
+      return NextResponse.json({ message: 'User does not have a hobby plan', isUnderLimit: true });
     }
   } catch (error) {
     console.error('Error fetching user data:', error);

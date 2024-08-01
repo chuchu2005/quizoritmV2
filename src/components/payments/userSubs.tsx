@@ -24,11 +24,11 @@ export default function UserSubs({ userId }: any) {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    if (userId) {
-      axios
-        .post(`/api/getDetails`, { userId })
+    async function fetchData(userId: string) {
+      await axios
+        .post("/api/getDetails", { userId })
         .then((data) => {
-          setData(data.data.paymentData);
+          setData(data.data.data.data);
         })
         .catch((error) => {
           console.error("Error fetching payment data:", error);
@@ -36,6 +36,9 @@ export default function UserSubs({ userId }: any) {
         .finally(() => {
           setLoading(false);
         });
+    }
+    if (userId) {
+      fetchData(userId);
     }
   }, [userId]);
 
@@ -58,10 +61,15 @@ export default function UserSubs({ userId }: any) {
               Subscription Plan: {data ? data.plan : "Hobby Plan"}
             </p>
             {data ? (
-              <div>
+              <div className="flex flex-col gap-y-2">
                 <p className="text-base font-semibold">
                   Subscription Method: {data.method}
                 </p>
+                <div className="flex gap-x-4 items-center">
+                  <p>Subscreption is: </p>
+                  <div className="size-5 bg-emerald-700 rounded-full">
+                  </div>
+                </div>
                 <p className="text-base font-semibold">
                   Subscription Created at: {data.createdAt}
                 </p>
@@ -71,27 +79,29 @@ export default function UserSubs({ userId }: any) {
                 <p className="text-lg font-bold -ml-4">Operations</p>
                 <p className="text-base font-semibold flex items-center">
                   Update to yearly plan:
-                  <Link href={"/payment"}></Link>
-                  <Button
-                    className="ml-4 flex items-center gap-x-2"
-                    onClick={() => {
-                      sessionStorage.setItem("plan", "Yearly");
-                    }}
-                  >
-                    <p>Update</p>
-                    <ExternalLink />
-                  </Button>
+                  <Link href={"/payment"}>
+                    <Button
+                      className="ml-4 flex items-center gap-x-2"
+                      onClick={() => {
+                        sessionStorage.setItem("plan", "Yearly");
+                      }}
+                    >
+                      <p>Update</p>
+                      <ExternalLink />
+                    </Button>
+                  </Link>
                 </p>
               </div>
             ) : (
               <div className="flex flex-col gap-y-5">
                 <p className="text-base font-semibold flex items-center">
                   Update to Get More Features:
-                  <Link href={"/pricing"}></Link>
-                  <Button className="ml-4 flex items-center gap-x-2">
-                    <p>Update</p>
-                    <ExternalLink />
-                  </Button>
+                  <Link href={"/pricing"}>
+                    <Button className="ml-4 flex items-center gap-x-2">
+                      <p>Update</p>
+                      <ExternalLink />
+                    </Button>
+                  </Link>
                 </p>
                 <p className="text-lg font-bold">Reduced Features</p>
                 <div className="flex flex-col gap-y-2">

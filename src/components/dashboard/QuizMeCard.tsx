@@ -21,15 +21,12 @@ const QuizMeCard = ({ userId }: Props) => {
   const { toast } = useToast();
 
   useEffect(() => {
-    if (userId) {
-      axios
+    async function fetchAvailable(userId: string) {
+      await axios
         .post("/api/verify", { userId })
         .then((response) => {
-          const data = response.data;
-          if (data.isUnderLimit) {
+          if (response.data.isUnderLimit === true) {
             setCanPlay(true);
-          } else {
-            alert("You have reached the limit of 3 games for the hobby plan.");
           }
           setLoading(false);
         })
@@ -37,10 +34,12 @@ const QuizMeCard = ({ userId }: Props) => {
           console.error("Error fetching user data:", error);
           setLoading(false);
         });
+    }
+    if (userId) {
+      fetchAvailable(userId);
     } else {
       router.push("/");
     }
-
   }, [userId, router]);
 
   const handleClick = () => {
@@ -53,7 +52,7 @@ const QuizMeCard = ({ userId }: Props) => {
           "You exceed the number of tries please subscribe to get unlimited features",
         action: (
           <ToastAction altText={"Navigate to payment"}>
-            <Link href="/payment">
+            <Link href="/pricing">
               <Button>Subscribe Now!</Button>
             </Link>
           </ToastAction>

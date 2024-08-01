@@ -67,25 +67,39 @@ export function Payment() {
     if (data.paymentMethod === "flutterwave") {
       startFlutterwave(data);
       toast({
-        title: "Payment Problem",
-        description: sessionStorage.getItem("message"),
-        action: (
-          <ToastAction altText={"Navigate to payment"}>
-              <Button onClick={() => startFlutterwave(data)}>Try again ?</Button>
-          </ToastAction>
-        ),
+        title: "Payment Initialize",
+        description: "the payment process run now!",
       });
+      if (sessionStorage.getItem("message")) {
+        toast({
+          title: "Payment Problem",
+          description: sessionStorage.getItem("message"),
+          action: (
+            <ToastAction altText={"Navigate to payment"}>
+              <Button onClick={() => startFlutterwave(data)}>
+                Try again ?
+              </Button>
+            </ToastAction>
+          ),
+        });
+      }
     } else if (data.paymentMethod === "paystack") {
       startPaystack(data);
       toast({
-        title: "Payment Problem",
-        description: sessionStorage.getItem("message"),
-        action: (
-          <ToastAction altText={"Navigate to payment"}>
-              <Button onClick={() => startPaystack(data)}>Try again ?</Button>
-          </ToastAction>
-        ),
+        title: "Payment Initialize",
+        description: "the payment process run now!",
       });
+      if (sessionStorage.getItem("message")) {
+        toast({
+          title: "Payment Problem",
+          description: sessionStorage.getItem("message"),
+          action: (
+            <ToastAction altText={"Navigate to payment"}>
+              <Button onClick={() => startPaystack(data)}>Try again ?</Button>
+            </ToastAction>
+          ),
+        });
+      }
     }
   };
 
