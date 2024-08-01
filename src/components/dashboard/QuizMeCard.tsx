@@ -1,9 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Play } from "lucide-react";
 import Image from "next/image";
+import axios from "axios";
+
 type Props = {
   userId: string;
 };
@@ -15,9 +17,9 @@ const QuizMeCard = ({ userId }: Props) => {
 
   useEffect(() => {
     if (userId) {
-      fetch(`/api/verify?userId=${userId}`)
-        .then((response) => response.json())
-        .then((data) => {
+      axios.post('/api/verify', { userId })
+        .then((response) => {
+          const data = response.data;
           if (data.isUnderLimit) {
             setCanPlay(true);
           } else {
@@ -30,9 +32,9 @@ const QuizMeCard = ({ userId }: Props) => {
           setLoading(false);
         });
     } else {
-      redirect("/");
+      router.push("/");
     }
-  }, [userId]);
+  }, [userId, router]);
 
   const handleClick = () => {
     if (canPlay) {

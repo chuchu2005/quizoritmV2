@@ -10,6 +10,7 @@ import {
 import { Button } from "../ui/button";
 import { ExternalLink } from "lucide-react";
 import Link from "next/link";
+import axios from "axios";
 
 interface PaymentData {
   method: string;
@@ -24,10 +25,9 @@ export default function UserSubs({ userId }: any) {
 
   useEffect(() => {
     if (userId) {
-      fetch(`/api/getDetails?userId=${userId}`)
-        .then((response) => response.json())
+      axios.post(`/api/getDetails`, { userId })
         .then((data) => {
-          setData(data.PaymentData);
+          setData(data.data.paymentData);
         })
         .catch((error) => {
           console.error("Error fetching payment data:", error);
