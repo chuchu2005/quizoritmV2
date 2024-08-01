@@ -15,7 +15,7 @@ const QuizMeCard = ({ userId }: Props) => {
 
   useEffect(() => {
     if (userId) {
-      fetch(`/api/getDetails?userId=${userId}`)
+      fetch(`/api/verify?userId=${userId}`)
         .then((response) => response.json())
         .then((data) => {
           if (data.isUnderLimit) {
