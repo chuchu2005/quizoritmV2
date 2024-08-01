@@ -7,45 +7,43 @@ const Page: FC = () => {
       <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div className="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
           <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
-            Designed for business teams like yours
+            Choose the Perfect Plan for Your Needs
           </h2>
           <p className="mb-5 font-light text-gray-800 sm:text-xl dark:text-gray-100">
-            Here at Flowbite we focus on markets where technology, innovation,
-            and capital can unlock long-term value and drive economic growth.
+            Whether you are just getting started or need advanced features, we have a plan that fits your needs. Unlock the full potential of our AI quiz generator today!
           </p>
         </div>
-        <div className="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0 ">
+        <div className="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
           <PricingCard
             title="Hobby"
-            price="$1"
-            period="/month"
-            description="Meant for students who just want to quiz themselves"
+            price="$0"
+            period="/Permanent"
             features={[
-              "Unlimited quiz generations ",
-              "No setup, or hidden fees",
-              "unlimited number of questions",
+              "No language feature",
+              "Can only create 3 quizzes",
+              "Can only generate 10 questions",
             ]}
           />
           <PricingCard
-            title="Monthly"
-            price="$1"
-            period="/month"
-            description="Meant for students who just want to quiz themselves"
+            title="Monthly Plan"
+            price="$2"
+            period="/Month"
+            description={{ oldPrice: 10, newPrice: 2 }}
             features={[
-              "Unlimited quiz generations ",
-              "No setup, or hidden fees",
-              "unlimited number of questions",
+              "Language feature",
+              "Access to generate unlimited quizzes",
+              "Access to generate more than unlimited questions on the quiz page",
             ]}
           />
           <PricingCard
-            title="Yearly"
-            price="$1"
-            period="/month"
-            description="Meant for students who just want to quiz themselves"
+            title="Yearly Plan"
+            price="$10"
+            period="/Year"
+            description={{ oldPrice: 100, newPrice: 10 }}
             features={[
-              "Unlimited quiz generations ",
-              "No setup, or hidden fees",
-              "unlimited number of questions",
+              "Language feature",
+              "Access to generate unlimited quizzes",
+              "Access to generate more than unlimited questions on the quiz page",
             ]}
           />
         </div>

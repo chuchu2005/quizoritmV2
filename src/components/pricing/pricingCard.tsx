@@ -1,14 +1,13 @@
 "use client";
 import React from "react";
 import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 type PricingCardProps = {
   title: string;
   price: string;
   period: string;
-  description: string;
+  description?: { oldPrice: number; newPrice: number };
   features: string[];
 };
 
@@ -19,15 +18,21 @@ export default function PricingCard({
   description,
   features,
 }: PricingCardProps) {
-  const router = useRouter();
-
-
   return (
     <div className="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
       <h3 className="mb-4 text-2xl font-semibold">{title}</h3>
-      <p className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
-        {description}
-      </p>
+      {description && (
+        <p className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
+          <div>
+            <span className="line-through text-red-500">
+              {description.oldPrice} $
+            </span>{" "}
+            <span className="font-bold text-emerald-500">
+              now {description.newPrice} $
+            </span>
+          </div>
+        </p>
+      )}
       <div className="flex justify-center items-baseline my-8">
         <span className="mr-2 text-5xl font-extrabold">{price}</span>
         <span className="text-gray-500 dark:text-gray-400">{period}</span>
@@ -52,15 +57,16 @@ export default function PricingCard({
         ))}
       </ul>
       <Link href="/payment">
-        <Button
-          onClick={() => {
-            sessionStorage.setItem('plan', title)
-          }}
-          className="hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900"
-          disabled={title === "Hobby"}
-        >
-          Get started
-        </Button>
+        {title !== "Hobby" && (
+          <Button
+            onClick={() => {
+              sessionStorage.setItem("plan", title);
+            }}
+            className="hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900"
+          >
+            Get started
+          </Button>
+        )}
       </Link>
     </div>
   );

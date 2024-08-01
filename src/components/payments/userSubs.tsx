@@ -27,8 +27,7 @@ export default function UserSubs({ userId }: any) {
       fetch(`/api/getDetails?userId=${userId}`)
         .then((response) => response.json())
         .then((data) => {
-          console.log("Payment data fetched:", data);
-          setData(data);
+          setData(data.PaymentData);
         })
         .catch((error) => {
           console.error("Error fetching payment data:", error);
