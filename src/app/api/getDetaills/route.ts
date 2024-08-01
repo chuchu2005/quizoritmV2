@@ -1,8 +1,7 @@
-// pages/api/getDetails.ts
 import { fetchPayment } from '@/components/payments/fetchPayment';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function POST(req: NextApiRequest, res: NextApiResponse) {
   const { userId } = req.query;
 
   if (!userId || typeof userId !== 'string') {
