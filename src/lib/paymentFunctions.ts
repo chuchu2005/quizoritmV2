@@ -9,8 +9,8 @@ const flutterwavePlanIdMonthly = "124721";
 const flutterwavePlanIdYearly = "124723";
 
 //Paystack plan id:
-const paystackPlanIdOne = "PLN_uhyew02o2ik1l9w";
-const paystackPlanIdTwo = "PLN_zqbt39911gc56jm";
+const paystackPlanIdOne = "PLN_gsx9r9hlakt1lp3";
+const paystackPlanIdTwo = "PLN_fy2fwmvqy3z0ffl";
 
 //Price for both:
 const priceMonthly = 2;
