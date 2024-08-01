@@ -5,16 +5,16 @@ import { z } from "zod";
 type Input = z.infer<typeof payment>;
 
 //Flutterwave plan id:
-const flutterwavePlanIdMonthly = "67117";
-const flutterwavePlanIdYearly = "67118";
+const flutterwavePlanIdMonthly = "124721";
+const flutterwavePlanIdYearly = "124723";
 
 //Paystack plan id:
 const paystackPlanIdOne = "PLN_uhyew02o2ik1l9w";
 const paystackPlanIdTwo = "PLN_zqbt39911gc56jm";
 
 //Price for both:
-const priceMonthly = 9;
-const priceYearly = 90;
+const priceMonthly = 2;
+const priceYearly = 10;
 
 //Get plan
 const plan = sessionStorage.getItem("plan");
@@ -27,6 +27,10 @@ export async function startFlutterwave(data: Input) {
     planId = flutterwavePlanIdMonthly;
     price = priceMonthly;
   }
+
+  sessionStorage.setItem("method", "flutterwave");
+  sessionStorage.setItem("plan", plan ? plan : "Monthly");
+
   try {
     const script = document.createElement("script");
     script.src = "https://checkout.flutterwave.com/v3.js";
@@ -66,11 +70,8 @@ export async function startFlutterwave(data: Input) {
 
     script.onerror = () => {
     };
-
-    sessionStorage.setItem("method", "flutterwave");
-    sessionStorage.setItem("plan", plan ? plan : "Monthly");
   } catch (error) {
-    console.log(error);
+    return { message: `Payment initialize: ${error}` };
   }
   return;
 }

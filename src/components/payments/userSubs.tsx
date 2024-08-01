@@ -25,7 +25,8 @@ export default function UserSubs({ userId }: any) {
 
   useEffect(() => {
     if (userId) {
-      axios.post(`/api/getDetails`, { userId })
+      axios
+        .post(`/api/getDetails`, { userId })
         .then((data) => {
           setData(data.data.paymentData);
         })
@@ -94,10 +95,9 @@ export default function UserSubs({ userId }: any) {
                 </p>
                 <p className="text-lg font-bold">Reduced Features</p>
                 <div className="flex flex-col gap-y-2">
-                  <p>Reduced Feature 4</p>
-                  <p>Reduced Feature 1</p>
-                  <p>Reduced Feature 3</p>
-                  <p>Reduced Feature 2</p>
+                  <p>No language feature</p>
+                  <p>Can only create 3 quizzes</p>
+                  <p>Can only generate 10 questions</p>
                 </div>
               </div>
             )}

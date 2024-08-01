@@ -34,6 +34,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useToast } from "../ui/use-toast";
 import { startFlutterwave, startPaystack } from "@/lib/paymentFunctions";
+import { ToastAction } from "../ui/toast";
 
 type Input = z.infer<typeof payment>;
 
@@ -46,21 +47,10 @@ declare global {
 export function Payment() {
   const router = useRouter();
   const { toast } = useToast();
-  const flutterwavePlanIdMonthly = "67117";
-  const flutterwavePlanIdYearly = "67118";
-  const amountInMonthly = 5;
-  const amountInYearly = 20;
   const plan = sessionStorage.getItem("plan");
   if (!plan) {
     router.push("/");
   }
-  let planId = flutterwavePlanIdYearly;
-  let price = amountInYearly;
-  if (plan === "Monthly Plan") {
-    planId = flutterwavePlanIdMonthly;
-    price = amountInMonthly;
-  }
-
   const form = useForm<Input>({
     resolver: zodResolver(payment),
     defaultValues: {
@@ -74,14 +64,28 @@ export function Payment() {
   });
 
   const onSubmit = (data: Input) => {
-    if (data.paymentMethod === "flutterwave"){
+    if (data.paymentMethod === "flutterwave") {
       startFlutterwave(data);
       toast({
-        title: "Flutterwave",
-        description: sessionStorage.getItem('message'),
-      })
-    } else if (data.paymentMethod === "paystack"){
+        title: "Payment Problem",
+        description: sessionStorage.getItem("message"),
+        action: (
+          <ToastAction altText={"Navigate to payment"}>
+              <Button onClick={() => startFlutterwave(data)}>Try again ?</Button>
+          </ToastAction>
+        ),
+      });
+    } else if (data.paymentMethod === "paystack") {
       startPaystack(data);
+      toast({
+        title: "Payment Problem",
+        description: sessionStorage.getItem("message"),
+        action: (
+          <ToastAction altText={"Navigate to payment"}>
+              <Button onClick={() => startPaystack(data)}>Try again ?</Button>
+          </ToastAction>
+        ),
+      });
     }
   };
 
@@ -91,7 +95,8 @@ export function Payment() {
     <Card className="mx-auto max-w-sm mb-20">
       <CardHeader>
         <CardTitle className="text-xl">
-          Pay for : {plan} Plan {price} {""} $
+          Pay for : {plan} Plan{" "}
+          {plan === "Monthly" ? 2 : plan === "Yearly" && 10} {""} $
         </CardTitle>
         <CardDescription>
           Choose the payment process informations :

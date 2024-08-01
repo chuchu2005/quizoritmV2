@@ -10,6 +10,7 @@ import {
 import Image from "next/image";
 import success from "../../../public/success.gif";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export default function SuccessPage() {
   const method = sessionStorage.getItem("method");
@@ -29,6 +30,14 @@ export default function SuccessPage() {
   } else if (plan === 'Yearly') {
     // Add one year to the start date
     expirationDate = new Date(date.setFullYear(date.getFullYear() + 1));
+  }
+
+  const handlePaystackPayment = async () => {
+    await axios.post("/api/payment")
+  } 
+
+  if (method === 'paystack'){
+    handlePaystackPayment();
   }
   return (
     <div className="fixed sm:-translate-x-1/2 sm:-translate-y-1/2 sm:top-1/2 sm:left-1/2">

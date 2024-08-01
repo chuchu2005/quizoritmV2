@@ -5,6 +5,10 @@ import { useRouter } from "next/navigation";
 import { Play } from "lucide-react";
 import Image from "next/image";
 import axios from "axios";
+import { useToast } from "../ui/use-toast";
+import { ToastAction } from "../ui/toast";
+import { Button } from "../ui/button";
+import Link from "next/link";
 
 type Props = {
   userId: string;
@@ -14,10 +18,12 @@ const QuizMeCard = ({ userId }: Props) => {
   const router = useRouter();
   const [canPlay, setCanPlay] = useState(false);
   const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
 
   useEffect(() => {
     if (userId) {
-      axios.post('/api/verify', { userId })
+      axios
+        .post("/api/verify", { userId })
         .then((response) => {
           const data = response.data;
           if (data.isUnderLimit) {
@@ -39,6 +45,19 @@ const QuizMeCard = ({ userId }: Props) => {
   const handleClick = () => {
     if (canPlay) {
       router.push("/quiz");
+    } else {
+      toast({
+        title: "Quiz Ai",
+        description:
+          "You exceed the number of tries please subscribe to get unlimited features",
+        action: (
+          <ToastAction altText={"Navigate to payment"}>
+            <Link href="/payment">
+              <Button>Subscribe Now!</Button>
+            </Link>
+          </ToastAction>
+        ),
+      });
     }
   };
 
