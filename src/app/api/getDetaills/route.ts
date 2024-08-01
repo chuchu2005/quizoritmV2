@@ -1,18 +1,19 @@
+// src/app/api/getPayment/route.ts
 import { fetchPayment } from '@/components/payments/fetchPayment';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextResponse } from 'next/server';
 
-export default async function POST(req: NextApiRequest, res: NextApiResponse) {
-  const { userId } = req.query;
+export async function POST(request: Request) {
+  const { userId } = await request.json();
 
   if (!userId || typeof userId !== 'string') {
-    return res.status(400).json({ error: 'Invalid user ID' });
+    return NextResponse.json({ error: 'Invalid user ID' }, { status: 400 });
   }
 
   try {
     const paymentData = await fetchPayment({ user: userId });
-    res.status(200).json(paymentData);
+    return NextResponse.json(paymentData);
   } catch (error) {
     console.error('Error fetching payment data:', error);
-    res.status(500).json({ error: 'Failed to fetch payment data' });
+    return NextResponse.json({ error: 'Failed to fetch payment data' }, { status: 500 });
   }
 }

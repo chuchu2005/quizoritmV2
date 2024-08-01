@@ -1,11 +1,12 @@
+// src/app/api/getDetails/route.ts
 import { prisma } from '@/lib/db';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextResponse } from 'next/server';
 
-export default async function POST(req: NextApiRequest, res: NextApiResponse) {
-  const { userId } = req.query;
+export async function POST(request: Request) {
+  const { userId } = await request.json();
 
   if (!userId || typeof userId !== 'string') {
-    return res.status(400).json({ error: 'Invalid user ID' });
+    return NextResponse.json({ error: 'Invalid user ID' }, { status: 400 });
   }
 
   try {
@@ -18,7 +19,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     });
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
     // Check if the plan is 'hobby' and count the games
@@ -26,12 +27,12 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
       const numberOfGames = user.games.length;
       const isUnderLimit = numberOfGames < 3;
 
-      return res.status(200).json({ isUnderLimit });
+      return NextResponse.json({ isUnderLimit });
     } else {
-      return res.status(200).json({ message: 'User does not have a hobby plan' });
+      return NextResponse.json({ message: 'User does not have a hobby plan' });
     }
   } catch (error) {
     console.error('Error fetching user data:', error);
-    return res.status(500).json({ error: 'Failed to fetch user data' });
+    return NextResponse.json({ error: 'Failed to fetch user data' }, { status: 500 });
   }
 }
