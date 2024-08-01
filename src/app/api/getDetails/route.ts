@@ -11,9 +11,12 @@ export async function POST(request: Request) {
 
   try {
     const paymentData = await fetchPayment({ user: userId });
-    return NextResponse.json(paymentData);
+    if (paymentData.data?.status === 200){
+      return NextResponse.json({data: paymentData, status: 200});
+    }else{
+      return NextResponse.json({message: "No Payment Data", status: 404, plan: paymentData.plan});
+    }
   } catch (error) {
-    console.error('Error fetching payment data:', error);
     return NextResponse.json({ error: 'Failed to fetch payment data' }, { status: 500 });
   }
 }

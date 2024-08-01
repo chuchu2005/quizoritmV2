@@ -1,6 +1,6 @@
 "use client";
 import { quizCreationSchema } from "@/schemas/forms/quiz";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -39,15 +39,16 @@ import LoadingQuestions from "@/components/LoadingQuestions";
 
 type Props = {
   topic: string;
+  user: string;
 };
 
 type Input = z.infer<typeof quizCreationSchema>;
 
-const QuizCreation = ({ topic: topicParam }: Props) => {
+const QuizCreation = ({ topic: topicParam, user: userId }: Props) => {
   const router = useRouter();
-  let plan: string = sessionStorage.getItem("plan") ?? "hobby";
   const [showLoader, setShowLoader] = React.useState(false);
   const [finishedLoading, setFinishedLoading] = React.useState(false);
+  const [plan, setPlan] = useState('')
   const { toast } = useToast();
   const { mutate: getQuestions, isPending } = useMutation({
     mutationFn: async ({ amount, topic, type, language }: Input) => {
@@ -59,6 +60,24 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
       });
       return response.data;
     },
+  });
+
+  const Url = "http://localhost:3000";
+
+  useEffect(() => {
+    async function fetchPlan() {
+      await axios
+        .post("/api/getDetails", { userId })
+        .then((data) => {
+          setPlan(data.data.plan)
+        })
+        .catch((error) => {
+          console.error("Error fetching payment data:", error);
+        });
+    }
+    if (userId) {
+      fetchPlan();
+    }
   });
 
   const form = useForm<Input>({

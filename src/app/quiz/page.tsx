@@ -18,18 +18,10 @@ interface Props {
 
 const Quiz = async ({ searchParams }: Props) => {
   const { userId } = auth();
-  if ( userId) {
-    axios.post(`/api/getDetails`, { userId })
-      .then((data) => {
-        sessionStorage.setItem("plan", data.data.paymentData.plan);
-      })
-      .catch((error) => {
-        console.error("Error fetching payment data:", error);
-      });
-  } else {
-    redirect("/");
+  if(!userId){
+    redirect("/")
   }
-  return <QuizCreation topic={searchParams.topic ?? ""} />;
+  return <QuizCreation topic={searchParams.topic ?? ""} user={userId} />;
 };
 
 export default Quiz;

@@ -40,6 +40,7 @@ const QuizMeCard = ({ userId }: Props) => {
     } else {
       router.push("/");
     }
+
   }, [userId, router]);
 
   const handleClick = () => {

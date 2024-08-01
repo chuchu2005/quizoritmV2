@@ -15,6 +15,7 @@ interface User {
 
 export async function fetchPayment({ user }: { user: string }) {
   let dataToResponse: {
+    status: number;
     method: string;
     createdAt?: string;
     updatedAt?: string;
@@ -53,11 +54,13 @@ export async function fetchPayment({ user }: { user: string }) {
       const latestSubscription = userSubscriptions[0];
 
       dataToResponse = {
+        status:200,
         method: data.paymentMethod,
         createdAt: latestSubscription.created_at,
         updatedAt: latestSubscription.next_payment_date,
         plan: data.plan,
       };
+      console.log(dataToResponse);
     } catch (error) {
       console.error("Error fetching subscriptions from Flutterwave:", error);
       throw new Error("Failed to fetch subscriptions from Flutterwave");
@@ -88,6 +91,7 @@ export async function fetchPayment({ user }: { user: string }) {
       }
 
       dataToResponse = {
+        status: 200,
         method: data.paymentMethod,
         createdAt: userSubscription.createdAt,
         updatedAt: userSubscription.updatedAt,
@@ -99,9 +103,9 @@ export async function fetchPayment({ user }: { user: string }) {
     }
   }
 
-  if (!dataToResponse) {
-    throw new Error("No subscriptions found for the user");
+  if (dataToResponse) {
+    return { data: dataToResponse };
+  } else {
+    return { status: 404, message: "The user is i the free plan", plan: 'hobby' };
   }
-
-  return { data: dataToResponse };
 }
