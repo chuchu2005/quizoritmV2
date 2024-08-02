@@ -23,7 +23,7 @@ export async function startFlutterwave(data: Input) {
   // Conditionally get the props
   let planId = flutterwavePlanIdYearly;
   let price = priceYearly;
-  if (plan === "Monthly") {
+  if (plan === "Monthly Plan") {
     planId = flutterwavePlanIdMonthly;
     price = priceMonthly;
   }
