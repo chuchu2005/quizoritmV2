@@ -107,7 +107,7 @@ const OpenEnded = ({ game }: Props) => {
 
   if (hasEnded) {
     return (
-      <div className="absolute mt-32 flex flex-col justify-center -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+      <div className="absolute flex flex-col justify-center -mt-36">
         <div className="px-4 py-2 mt-2 font-semibold text-white bg-green-500 rounded-md whitespace-nowrap">
           You Completed in{" "}
           {formatTimeDelta(differenceInSeconds(now, game.timeStarted))}
@@ -125,7 +125,7 @@ const OpenEnded = ({ game }: Props) => {
 
   return (
 
-      <div className="mt-24 inset-0 absolute-translate-x-1/2 -translate-y-1/2 md:w-[80vw] max-w-4xl w-[90vw] top-1/2 left-1/2">
+      <div className="absolute md:w-[80vw] max-w-4xl w-[90vw] -mt-24">
         <div className="flex flex-row justify-between">
           <div className="flex flex-col">
             {/* topic */}

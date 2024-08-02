@@ -16,17 +16,19 @@ export const metadata = {
 };
 
 const Dasboard = async (props: Props) => {
-  const {userId} = auth();
+  const { userId } = auth();
   if (!userId) {
     redirect("/");
   }
 
   return (
     <main className="p-8 -mt-16 mx-auto max-w-7xl">
-        <div className="-ml-10 text-3xl font-bold">
-            <WellcomePhrase />
-        </div>
-      <div><QuizMeCard /></div>
+      <div className="-ml-10 text-3xl font-bold">
+        <WellcomePhrase />
+      </div>
+      <div>
+        <QuizMeCard userId={userId}/>
+      </div>
       <p className="font-bold my-6 text-xl">User informations</p>
       <div className="grid gap-4 mt-4 md:grid-cols-2">
         <ProfileButton />

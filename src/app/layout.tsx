@@ -28,6 +28,7 @@ export default function RootLayout({
               <ClerkLoaded>
                 <Navbar />
                 {children}
+                <Toaster />
               </ClerkLoaded>
             </Providers>
             <Toaster />

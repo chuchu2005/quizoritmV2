@@ -1,6 +1,6 @@
 "use client";
 import { quizCreationSchema } from "@/schemas/forms/quiz";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -39,14 +39,16 @@ import LoadingQuestions from "@/components/LoadingQuestions";
 
 type Props = {
   topic: string;
+  user: string;
 };
 
 type Input = z.infer<typeof quizCreationSchema>;
 
-const QuizCreation = ({ topic: topicParam }: Props) => {
+const QuizCreation = ({ topic: topicParam, user: userId }: Props) => {
   const router = useRouter();
   const [showLoader, setShowLoader] = React.useState(false);
   const [finishedLoading, setFinishedLoading] = React.useState(false);
+  const [plan, setPlan] = useState('')
   const { toast } = useToast();
   const { mutate: getQuestions, isPending } = useMutation({
     mutationFn: async ({ amount, topic, type, language }: Input) => {
@@ -58,6 +60,24 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
       });
       return response.data;
     },
+  });
+
+  const Url = "http://localhost:3000";
+
+  useEffect(() => {
+    async function fetchPlan() {
+      await axios
+        .post("/api/getDetails", { userId })
+        .then((data) => {
+          setPlan(data.data.plan)
+        })
+        .catch((error) => {
+          console.error("Error fetching payment data:", error);
+        });
+    }
+    if (userId) {
+      fetchPlan();
+    }
   });
 
   const form = useForm<Input>({
@@ -112,7 +132,7 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
   }
 
   return (
-    <div className="max-h-screen">
+    <div className="max-h-screen mb-20">
       <div className="fixed sm:-translate-x-1/2 sm:-translate-y-1/2 sm:top-1/2 sm:left-1/2 ">
         <Card className="w-[100%]">
           <CardHeader>
@@ -157,7 +177,7 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
                             form.setValue("amount", parseInt(e.target.value));
                           }}
                           min={1}
-                          max={10}
+                          max={plan === "hobby" ? 10 : 40}
                         />
                       </FormControl>
                       <FormDescription>
@@ -169,58 +189,64 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
                   )}
                 />
 
-                <FormField
-                  control={form.control}
-                  name="language"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>language</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select the language" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="English">English</SelectItem>
-                          <SelectItem value="French">French</SelectItem>
-                          <SelectItem value="Arabic">Arabic</SelectItem>
-                          <SelectItem value="Spanish">Spanish</SelectItem>
-                          <SelectItem value="German">German</SelectItem>
-                          <SelectItem value="Italian">Italian</SelectItem>
-                          <SelectItem value="Portuguese">Portuguese</SelectItem>
-                          <SelectItem value="Dutch">Dutch</SelectItem>
-                          <SelectItem value="Russian">Russian</SelectItem>
-                          <SelectItem value="Chinese">Chinese</SelectItem>
-                          <SelectItem value="Japanese">Japanese</SelectItem>
-                          <SelectItem value="Korean">Korean</SelectItem>
-                          <SelectItem value="Hindi">Hindi</SelectItem>
-                          <SelectItem value="Swedish">Swedish</SelectItem>
-                          <SelectItem value="Norwegian">Norwegian</SelectItem>
-                          <SelectItem value="Danish">Danish</SelectItem>
-                          <SelectItem value="Finnish">Finnish</SelectItem>
-                          <SelectItem value="Polish">Polish</SelectItem>
-                          <SelectItem value="Turkish">Turkish</SelectItem>
-                          <SelectItem value="Czech">Czech</SelectItem>
-                          <SelectItem value="Hungarian">Hungarian</SelectItem>
-                          <SelectItem value="Romanian">Romanian</SelectItem>
-                          <SelectItem value="Greek">Greek</SelectItem>
-                          <SelectItem value="Hebrew">Hebrew</SelectItem>
-                          <SelectItem value="Thai">Thai</SelectItem>
-                          <SelectItem value="Vietnamese">Vietnamese</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormDescription>
-                        You can choose from the following language to get quiz
-                        about
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                {plan !== "hobby" && (
+                  <FormField
+                    control={form.control}
+                    name="language"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>language</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select the language" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="English">English</SelectItem>
+                            <SelectItem value="French">French</SelectItem>
+                            <SelectItem value="Arabic">Arabic</SelectItem>
+                            <SelectItem value="Spanish">Spanish</SelectItem>
+                            <SelectItem value="German">German</SelectItem>
+                            <SelectItem value="Italian">Italian</SelectItem>
+                            <SelectItem value="Portuguese">
+                              Portuguese
+                            </SelectItem>
+                            <SelectItem value="Dutch">Dutch</SelectItem>
+                            <SelectItem value="Russian">Russian</SelectItem>
+                            <SelectItem value="Chinese">Chinese</SelectItem>
+                            <SelectItem value="Japanese">Japanese</SelectItem>
+                            <SelectItem value="Korean">Korean</SelectItem>
+                            <SelectItem value="Hindi">Hindi</SelectItem>
+                            <SelectItem value="Swedish">Swedish</SelectItem>
+                            <SelectItem value="Norwegian">Norwegian</SelectItem>
+                            <SelectItem value="Danish">Danish</SelectItem>
+                            <SelectItem value="Finnish">Finnish</SelectItem>
+                            <SelectItem value="Polish">Polish</SelectItem>
+                            <SelectItem value="Turkish">Turkish</SelectItem>
+                            <SelectItem value="Czech">Czech</SelectItem>
+                            <SelectItem value="Hungarian">Hungarian</SelectItem>
+                            <SelectItem value="Romanian">Romanian</SelectItem>
+                            <SelectItem value="Greek">Greek</SelectItem>
+                            <SelectItem value="Hebrew">Hebrew</SelectItem>
+                            <SelectItem value="Thai">Thai</SelectItem>
+                            <SelectItem value="Vietnamese">
+                              Vietnamese
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormDescription>
+                          You can choose from the following language to get quiz
+                          about
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
 
                 <div className="flex justify-between">
                   <Button
