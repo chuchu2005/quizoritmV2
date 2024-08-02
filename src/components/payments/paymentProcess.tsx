@@ -292,7 +292,7 @@ export function Payment() {
             {/* Refund Policy Link */}
             <div className="mt-4 text-center text-sm">
               Refund{" "}
-              <Link href="#" className="underline">
+              <Link href="aiteacher.learnrithm.com/refund" className="underline">
                 Policies
               </Link>
             </div>
