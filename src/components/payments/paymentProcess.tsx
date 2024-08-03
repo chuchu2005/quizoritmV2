@@ -110,7 +110,7 @@ export function Payment() {
       <CardHeader>
         <CardTitle className="text-xl">
           Pay for : {plan} Plan{" "}
-          {plan === "Monthly" ? 2 : plan === "Yearly" && 10} {""} $
+          {plan === "Monthly Plan" ? 2 : plan === "Yearly Plan" && 10} {""} $
         </CardTitle>
         <CardDescription>
           Choose the payment process informations :

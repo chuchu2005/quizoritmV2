@@ -83,7 +83,7 @@ export default function UserSubs({ userId }: any) {
                     <Button
                       className="ml-4 flex items-center gap-x-2"
                       onClick={() => {
-                        sessionStorage.setItem("plan", "Yearly");
+                        sessionStorage.setItem("plan", "Yearly Plan");
                       }}
                     >
                       <p>Update</p>

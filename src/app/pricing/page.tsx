@@ -1,7 +1,31 @@
 import PricingCard from "@/components/pricing/pricingCard";
+import { prisma } from "@/lib/db";
+import { auth } from "@clerk/nextjs/server";
 import { FC } from "react";
 
 const Page: FC = () => {
+  const { userId } = auth();
+  let Paid = false;
+  async function fetchIfPaid(userId: string) {
+    const user = await prisma.user.findUnique({
+      where: {
+        userId: userId,
+      },
+    });
+    if (user) {
+      const paid = user.plan !== 'hobby' && true;
+      return { paid: paid };
+    } else {
+      throw new Error("user not exist");
+    }
+  }
+  if (userId) {
+    fetchIfPaid(userId).then(
+      (data) => {
+        Paid = data.paid;
+      }
+    );
+  }
   return (
     <section>
       <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
@@ -10,7 +34,9 @@ const Page: FC = () => {
             Choose the Perfect Plan for Your Needs
           </h2>
           <p className="mb-5 font-light text-gray-800 sm:text-xl dark:text-gray-100">
-            Whether you are just getting started or need advanced features, we have a plan that fits your needs. Unlock the full potential of our AI quiz generator today!
+            Whether you are just getting started or need advanced features, we
+            have a plan that fits your needs. Unlock the full potential of our
+            AI quiz generator today!
           </p>
         </div>
         <div className="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
@@ -23,6 +49,8 @@ const Page: FC = () => {
               "Can only create 3 quizzes",
               "Can only generate 10 questions",
             ]}
+            paid= {Paid}
+            user={userId}
           />
           <PricingCard
             title="Monthly Plan"
@@ -34,7 +62,7 @@ const Page: FC = () => {
               "Access to generate unlimited quizzes",
               "Access to generate more than unlimited questions on the quiz page",
             ]}
-          />
+            paid= {Paid}          />
           <PricingCard
             title="Yearly Plan"
             price="$10"
@@ -45,6 +73,7 @@ const Page: FC = () => {
               "Access to generate unlimited quizzes",
               "Access to generate more than unlimited questions on the quiz page",
             ]}
+            paid= {Paid}
           />
         </div>
       </div>
