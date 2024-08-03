@@ -5,7 +5,7 @@ import { z } from "zod";
 type Input = z.infer<typeof payment>;
 
 //Flutterwave plan id:
-const flutterwavePlanIdMonthly = "124721";
+const flutterwavePlanIdMonthly = "124866";
 const flutterwavePlanIdYearly = "124723";
 
 //Paystack plan id:
