@@ -1,45 +1,44 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "cockroachdb"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  userId        String    @id @default(cuid())
-  email     String    @unique
-  plan      String    @default("hobby")
+  userId        String    @id @default(auto()) @map("_id") @db.ObjectId
+  email          String    @unique
+  plan           String    @default("hobby")
   paymentMethod  String?
-  imageUrl  String
-  firstName String?
-  lastName  String?
-  games     Game[]
+  imageUrl       String
+  firstName      String?
+  lastName       String?
+  games          Game[]
 
-  @@index([userId])
+  // No need for @@index here if email is already unique
 }
 
 model Game {
-  id          String     @id
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
   userId      String
   timeStarted DateTime
   topic       String
   timeEnded   DateTime?
   gameType    GameType
   language    String
-  user        User       @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  user        User       @relation(fields: [userId], references: [userId])
   questions   Question[]
 
-  @@index([userId])
+  // No need for @@index here if userId is already indexed
 }
 
 model Question {
-  id                String   @id @default(cuid())
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
   question          String
   answer            String
   gameId            String
@@ -48,15 +47,17 @@ model Question {
   questionType      GameType
   userAnswer        String?
   isCorrect         Boolean?
-  game              Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  game              Game     @relation(fields: [gameId], references: [id])
 
-  @@index([gameId], map: "gameId")
+  // No need for @@index here if gameId is already indexed
 }
 
 model TopicCount {
-  id    Int    @id @default(sequence())
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
   topic String @unique
   count Int
+
+  // No need for @@index here if topic is already unique
 }
 
 enum GameType {
